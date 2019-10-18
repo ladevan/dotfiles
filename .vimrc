@@ -1,5 +1,11 @@
 " based on setting from Douglas Black
 let mapleader=","       " leader is comma
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <leader>ez :vsp ~/.zshrc<CR>
+nnoremap <leader>m :silent make\|redraw!\|cw<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>s :mksession<CR>
+
 " Colors {{{
 syntax enable           " enable syntax processing
 set termguicolors
@@ -101,3 +107,4 @@ let g:lightline = {
     \ 'colorscheme': 'wombat',
     \ }
 let g:shfmt_fmt_on_save = 1
+runtime ftplugin/man.vim
