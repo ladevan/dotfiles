@@ -108,3 +108,25 @@ let g:lightline = {
     \ }
 let g:shfmt_fmt_on_save = 1
 runtime ftplugin/man.vim
+"这样选中你要运行的代码<leader>te 就会发到python shell里
+"your runing code could send to python shell
+
+nnoremap <leader>te V:call SendToTerminal()<CR>$
+vnoremap <leader>te <Esc>:call SendToTerminal()<CR>
+function! SendToTerminal()
+    let buff_n = term_list()
+    if len(buff_n) > 0
+        let buff_n = buff_n[0] " sends to most recently opened terminal
+        let lines = getline(getpos("'<")[1], getpos("'>")[1])
+        let indent = match(lines[0], '[^ \t]') " check for removing unnecessary indent
+        for l in lines
+            let new_indent = match(l, '[^ \t]')
+            if new_indent == 0
+                call term_sendkeys(buff_n, l. "\<CR>")
+            else
+                call term_sendkeys(buff_n, l[indent:]. "\<CR>")
+            endif
+            sleep 10m
+        endfor
+    endif
+endfunction
