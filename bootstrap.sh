@@ -9,7 +9,7 @@ echo "downloading .vimrc"
 curl -O https://raw.githubusercontent.com/ladevan/dotfiles/master/.vimrc
 
 # get prezto
-if [ -s ~/.zpreztorc ]
+if [ -s .zpreztorc ]
 then
   echo "prezto installed"
 else
