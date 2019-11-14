@@ -1,11 +1,7 @@
 " based on setting from Douglas Black
 let mapleader=","       " leader is comma
-" Colors {{{
-syntax enable           " enable syntax processing
-set termguicolors
-" }}}
 " Misc {{{
-set backspace=indent,eol,start
+set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 set clipboard=unnamed
 " }}}
 " Spaces & Tabs {{{
@@ -14,7 +10,7 @@ set tabstop=4           " 4 space tab
 set expandtab           " use spaces for tabs
 set softtabstop=4       " 4 space tab
 set shiftwidth=4
-set modelines=1
+set nomodeline
 filetype indent on
 filetype plugin on
 set smartindent
@@ -23,15 +19,17 @@ set smartindent
 set number              " show line numbers
 set relativenumber
 set showcmd             " show command in bottom bar
-set nocursorline        " highlight current line
+set cursorline        " highlight current line
 set wildmenu
 set lazyredraw
 set fillchars+=vert:┃
 set laststatus=2        " only show status in multi-windows mode
 set noshowmode
+set splitbelow
+set splitright
 " }}}
 " Searching {{{
-set showmatch           " higlight matching parenthesis
+set showmatch           " highlight matching parenthesis
 set ignorecase          " ignore case when searching
 set incsearch           " search as characters are entered
 set hlsearch            " highlight all matches
@@ -48,19 +46,24 @@ set foldlevelstart=10   " start with fold level of 1
 " }}}
 " Edit {{{
 set backup
+set noswapfile
 set writebackup
 set spell spelllang=en_us
 set autochdir
 set undofile
 set backupdir=~/.vim/.backup//
-set directory=~/.vim/.swp//
+" set directory=~/.vim/.swp//
 set undodir=~/.vim/.undo//
 set visualbell
 set history=1000
 set autoread
 set listchars=tab:__,trail:_,nbsp:_,extends:>,precedes:<
 set list
+set gdefault
+set wrap
+set formatoptions-=cro
 " }}}
+
 " key mappings {{{
 " move vertically by visual line
 "nnoremap j gj
@@ -69,6 +72,7 @@ set list
 inoremap jj <esc>
 nnoremap B ^
 nnoremap E $
+nnoremap Y y$
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>
 imap <c-s> <Esc><c-s>
@@ -77,32 +81,78 @@ nnoremap <leader>ez :vsp ~/.zshrc<CR>
 nnoremap <leader>m :silent make\|redraw!\|cw<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>s :mksession<CR>
+
+" System clipboard interaction.  Mostly from:
+" https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
+noremap <leader>y "*y
+noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
+noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
+vnoremap <leader>y "*ygv
+
+" Emac binding in command line mode
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+
+" Keep search matches in the middle of the window
+nnoremap n nzzzv
+nnoremap N Nzzzv
+noremap Q <nop>
+" Close all
+noremap QA :qa<CR>
+nmap <F8> :TagbarToggle<CR>
 " }}}
 " Plugins
 call plug#begin('~/.vim/plugged')
+Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'justmao945/vim-clang'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/calendar.vim'
+Plug 'dense-analysis/ale'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'dense-analysis/ale'
-Plug 'ervandew/supertab'
 " need shfmt command
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 Plug 'fs111/pydoc.vim', { 'for': 'py' }
-" Plug 'skywind3000/asyncrun.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'jiangmiao/auto-pairs'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'sheerun/vim-wombat-scheme'
+Plug 'majutsushi/tagbar'
+Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
+
+" Colors {{{
+syntax enable           " enable syntax processing
+set termguicolors
+set background=dark
+colorscheme wombat
+" }}}
 
 "Plugin specific
 " lightline
 let g:lightline = {
     \ 'colorscheme': 'wombat',
+    \ 'component': {
+    \   'tag': '%{gutentags#statusline()}'
+    \   },
     \ }
 let g:shfmt_fmt_on_save = 1
-let g:ale_completion_enabled=1
-let g:asyncrun_open = 6
+let g:ale_fixers = {
+            \    '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \    'python': ['yapf']
+            \}
+let g:ale_fix_on_save = 1
+let g:UltiSnipsExpandTrigger='<c-l>'
 
+" abberate
+iabbrev ddate <C-r>=strftime("%F")<CR>
 " Others
-"
+runtime macros/matchit.vim
+map <tab> %
+if has("patch-8.1.0360")
+    set diffopt+=internal,algorithm:patience
+endif
+autocmd Filetype c setlocal makeprg=gcc\ %\ -o\ %<
