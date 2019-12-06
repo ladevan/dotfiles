@@ -48,7 +48,8 @@ set foldlevelstart=10   " start with fold level of 1
 set backup
 set noswapfile
 set writebackup
-set spell spelllang=en_us
+set spelllang=en_us
+set nospell
 set autochdir
 set undofile
 set backupdir=~/.vim/.backup//
@@ -61,7 +62,7 @@ set listchars=tab:__,trail:_,nbsp:_,extends:>,precedes:<
 set list
 set gdefault
 set wrap
-set formatoptions-=cro
+set formatoptions=cql
 " }}}
 
 " key mappings {{{
