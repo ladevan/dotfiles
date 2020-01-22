@@ -7,6 +7,13 @@ mkdir -p .vim/.swp
 mkdir -p .vim/.undo
 echo "downloading .vimrc"
 curl -O https://raw.githubusercontent.com/ladevan/dotfiles/master/.vimrc
+echo "downloading vim-plug"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+echo "get dircolor visualization script"
+curl -O https://raw.githubusercontent.com/ladevan/dotfiles/master/colours.sh
+echo "get dircolor scheme"
+curl -O https://raw.githubusercontent.com/ladevan/dotfiles/master/.dir_colors
 
 # get prezto
 if [ -f .zpreztorc ]
