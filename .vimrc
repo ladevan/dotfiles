@@ -128,8 +128,8 @@ Plug 'thinca/vim-quickrun'
 Plug 'jiangmiao/auto-pairs'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'sheerun/vim-wombat-scheme'
-Plug 'majutsushi/tagbar'
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'majutsushi/tagbar'
+" Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 " Colors {{{
