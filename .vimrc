@@ -111,23 +111,24 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
+Plug 'ajh17/VimCompletesMe'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'justmao945/vim-clang'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/calendar.vim'
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 " need shfmt command
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
-Plug 'fs111/pydoc.vim', { 'for': 'py' }
 Plug 'thinca/vim-quickrun'
 Plug 'jiangmiao/auto-pairs'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'sheerun/vim-wombat-scheme'
+Plug 'natebosch/vim-lsc'
 " Plug 'majutsushi/tagbar'
 " Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
@@ -148,12 +149,39 @@ let g:lightline = {
     \   },
     \ }
 let g:shfmt_fmt_on_save = 1
-let g:ale_fixers = {
-            \    '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \    'python': ['yapf']
-            \}
-let g:ale_fix_on_save = 1
+" let g:ale_fixers = {
+"             \    '*': ['remove_trailing_lines', 'trim_whitespace'],
+"             \    'python': ['yapf']
+"             \}
+" let g:ale_fix_on_save = 1
 let g:UltiSnipsExpandTrigger='<c-l>'
+let g:lsc_server_commands = { 'python' : 'pyls' }
+" Use all the defaults (recommended):
+let g:lsc_auto_map = v:true
+
+" Apply the defaults with a few overrides:
+let g:lsc_auto_map = {'defaults': v:true, 'FindReferences': '<leader>r'}
+
+" Setting a value to a blank string leaves that command unmapped:
+let g:lsc_auto_map = {'defaults': v:true, 'FindImplementations': ''}
+
+" ... or set only the commands you want mapped without defaults.
+" Complete default mappings are:
+let g:lsc_auto_map = {
+    \ 'GoToDefinition': 'gd',
+    \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
+    \ 'FindReferences': 'gr',
+    \ 'NextReference': '<C-n>',
+    \ 'PreviousReference': '<C-p>',
+    \ 'FindImplementations': 'gI',
+    \ 'FindCodeActions': 'ga',
+    \ 'Rename': 'gR',
+    \ 'ShowHover': v:true,
+    \ 'DocumentSymbol': 'go',
+    \ 'WorkspaceSymbol': 'gS',
+    \ 'SignatureHelp': 'gm',
+    \ 'Completion': 'completefunc',
+    \}
 
 " abberate
 iabbrev ddate <C-r>=strftime("%F")<CR>
