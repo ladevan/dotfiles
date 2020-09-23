@@ -1,23 +1,23 @@
-Host 10.160.1.81
-    HostName server81
+Host server81
+    HostName 10.160.1.81
     User dengyu
 
-Host 10.160.1.80
-    HostName server80
+Host server80
+    HostName 10.160.1.80
     User dengyu
 
-Host 10.52.0.31
-    HostName IDC31
+Host IDC31
+    HostName 10.52.0.31
     User liudengyu
 
-Host 10.52.0.33
-    HostName IDC33
+Host IDC33
+    HostName 10.52.0.33
     User liudengyu
 
-Host 10.52.0.34
-    HostName IDC34
+Host IDC34
+    HostName 10.52.0.34
     User liudengyu
 
-Host 10.52.0.35
-    HostName IDC35
+Host IDC35
+    HostName 10.52.0.35
     User liudengyu
