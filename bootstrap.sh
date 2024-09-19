@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # setup vim related stuff
-echo "create backup, swap and undo folder"
+# echo "create backup, swap and undo folder"
 # mkdir -p .vim/.backup
 # mkdir -p .vim/.swp
 # mkdir -p .vim/.undo
